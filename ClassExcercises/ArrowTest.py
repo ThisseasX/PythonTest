@@ -116,5 +116,13 @@ def create_arrow():
         if index == peak:
             ascend = False
 
+    # New line to distance the arrow from the inputs.
+    print("\n")
+
 
 create_arrow()
+
+while True:
+    x = input("Type 'x' to close: ")
+    if x == 'x':
+        break
