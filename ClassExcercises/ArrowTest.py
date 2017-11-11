@@ -29,34 +29,62 @@
 """
 
 # The arrow's dimensions.
-whitespace = 30  # Central whitespace - Can be filled with stars.
-edge_height = 6  # Height of the edges where whitespace is needed.
-center_height = 5  # Height of the central part where stars fill the whitespace.
-peak = (edge_height + center_height + 1)  # The tip of the arrowheads.
+
+# Central whitespace - Can be filled with stars.
+while True:
+    whitespace = input("Please input whitespace length: ")
+    try:
+        whitespace = int(whitespace)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+# Height of the edges where whitespace is needed.
+while True:
+    edge_height = input("Please input edge height: ")
+    try:
+        edge_height = int(edge_height)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+# Height of the central part where stars fill the whitespace.
+while True:
+    center_height = input("Please input central height: ")
+    try:
+        center_height = int(center_height)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+peak = (edge_height + center_height)  # The tip of the arrowheads.
 max_length = peak * 2 + whitespace  # Maximum length, used for centering.
 
 
 # Function that creates the space between the two arrowheads.
 #
-# If the loop is 6 rows away from the edge, fill with whitespace
+# If the loop is n rows away from the edge, fill with whitespace
 # else fill with stars.
-def fill_whitespace(i):
-    if i > 6:
+def fill_whitespace(n):
+    if n > edge_height:
         return "*" * whitespace
     else:
         return " " * whitespace
 
 
 # Function that returns a complete string that represents a single row.
-def create_row(i):
-    string = "*" * i
-    string += fill_whitespace(i)
-    string += "*" * i
+def create_row(n):
+    string = "*" * n
+    string += fill_whitespace(n)
+    string += "*" * n
     return string
 
 
 # Function that creates the two-headed arrow.
 def create_arrow():
+    # New line to distance the arrow from the inputs.
+    print("\n")
+
     # This is the starting index for the loop representing
     # stars before and after the added whitespace.
     #

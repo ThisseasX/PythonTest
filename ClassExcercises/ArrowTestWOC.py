@@ -30,28 +30,51 @@
     WOC stands for WithOut Comments.
 """
 
-whitespace = 30
-edge_height = 6
-center_height = 5
-peak = (edge_height + center_height + 1)
+while True:
+    whitespace = input("Please input whitespace length: ")
+    try:
+        whitespace = int(whitespace)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+while True:
+    edge_height = input("Please input edge height: ")
+    try:
+        edge_height = int(edge_height)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+while True:
+    center_height = input("Please input central height: ")
+    try:
+        center_height = int(center_height)
+        break
+    except ValueError:
+        print("-- Please input a valid number --")
+
+peak = (edge_height + center_height)
 max_length = peak * 2 + whitespace
 
 
-def fill_whitespace(i):
-    if i > 6:
+def fill_whitespace(n):
+    if n > edge_height:
         return "*" * whitespace
     else:
         return " " * whitespace
 
 
-def create_row(i):
-    string = "*" * i
-    string += fill_whitespace(i)
-    string += "*" * i
+def create_row(n):
+    string = "*" * n
+    string += fill_whitespace(n)
+    string += "*" * n
     return string
 
 
 def create_arrow():
+    print("\n")
+
     index = 1
     ascend = True
 
