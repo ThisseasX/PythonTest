@@ -1,12 +1,13 @@
 # Import the 'pygame' library
 import pygame
 import pygame.gfxdraw
+import math
 from random import randint
 
 # Initialize 'pygame'
 pygame.init()
 
-# Define the colors we will use in RGB format
+# Define the colors we will use in rgb format
 GREY = (230, 230, 230)
 GREEN = (0, 180, 0)
 
@@ -41,7 +42,7 @@ def draw_blob(p, size):
 #   This function returns the position of the point after
 #   the transform has been applied.
 def apply_transform(t, p):
-    return (t[0] * p[0] + t[1] * p[1] + t[4], t[2] * p[0] + t[3] * p[1] + t[5])
+    return t[0] * p[0] + t[1] * p[1] + t[4], t[2] * p[0] + t[3] * p[1] + t[5]
 
 
 # Ask pygame if the user has clicked the X to close.
@@ -63,7 +64,7 @@ def do_eventloop(draw_function):
         clock.tick(10)
         if check_for_quit():
             return
-        if (draw_function):
+        if draw_function:
             # Clear the screen to grey
             screen.fill(GREY)
             draw_function()
@@ -73,13 +74,13 @@ def do_eventloop(draw_function):
 
 # Call a draw function just once, and then wait for the user to
 # click X to close.
-def draw_once(function):
+def draw_once(my_function):
     print("Starting")
     # Clear the screen to grey
     screen.fill(GREY)
     # Show the grey background.
     pygame.display.update()
-    function()
+    my_function()
     # Show whatever we've just drawn.
     pygame.display.update()
     print('Finished')
@@ -143,7 +144,7 @@ def draw_curve(level, start, end, bend):
     if level < 1:
         return
     bend = bend / 2
-    split = ((start[0] + end[0]) / 2, (start[1] + end[1] - bend) / 2);
+    split = ((start[0] + end[0]) / 2, (start[1] + end[1] - bend) / 2)
     draw_curve(level - 1, start, split, bend / 2)
     draw_curve(level - 1, split, end, bend / 2)
 
@@ -154,24 +155,24 @@ def draw_the_curve():
 
 def intensity(time):
     value = math.sin(math.radians((3 * time) % 360))
-    value = int(100 * value + 150);
-    return value;
+    value = int(100 * value + 150)
+    return value
 
 
 def colour(time):
-    R = intensity(time * 1)
-    G = intensity(time * 1.3)
-    B = intensity(time * 1.5)
+    r = intensity(time * 1)
+    g = intensity(time * 1.3)
+    b = intensity(time * 1.5)
     # G=R
     # B=R
-    colour = (R, G, B)
-    print(colour)
-    return colour
+    my_colour = (r, g, b)
+    print(my_colour)
+    return my_colour
 
 
-def show_colour(R, G, B):
-    print("RGB colour values are R=", R, " G=", G, " B=", B)
-    screen.fill((R, G, B))
+def show_colour(r, g, b):
+    print("rgb colour values are R=", r, " G=", g, " B=", b)
+    screen.fill((r, g, b))
     pygame.display.update()
     check_for_quit()
     input("Press return for next colour...")
@@ -179,8 +180,6 @@ def show_colour(R, G, B):
 
 
 def draw_all_colours():
-    time = 0
-
     print("Black")
     show_colour(0, 0, 0)
     print("White")
@@ -199,36 +198,36 @@ def draw_all_colours():
     print("Now showing lots of colours...")
 
 
-def draw_colour(RGB):
-    screen.fill((RGB[0], RGB[1], RGB[2]))
+def draw_colour(rgb):
+    screen.fill((rgb[0], rgb[1], rgb[2]))
     pygame.display.update()
     pygame.time.wait(20)
 
 
-def blend_colour(From, To):
+def blend_colour(_from, to):
     for i in range(256):
         t = i / 255
-        RGB = [From[j] + t * (To[j] - From[j]) for j in range(3)]
-        draw_colour(RGB)
+        rgb = [_from[j] + t * (to[j] - _from[j]) for j in range(3)]
+        draw_colour(rgb)
 
 
 Colour = [0, 0, 0]
 
 
-def next_colour2(name, RGB):
+def next_colour2(name, rgb):
     global Colour
     print("Changing colour to ", name)
-    print(" R:", RGB[0], " G:", RGB[1], " B:", RGB[2])
-    blend_colour(Colour, RGB)
-    Colour = [x for x in RGB]
+    print(" R:", rgb[0], " G:", rgb[1], " B:", rgb[2])
+    blend_colour(Colour, rgb)
+    Colour = [x for x in rgb]
     print("Colour changed")
     pygame.time.wait(2000)
 
 
-def next_colour(name, RGB):
+def next_colour(name, rgb):
     print("Changing colour to ", name)
-    print(" R:", RGB[0], " G:", RGB[1], " B:", RGB[2])
-    draw_colour(RGB)
+    print(" R:", rgb[0], " G:", rgb[1], " B:", rgb[2])
+    draw_colour(rgb)
     pygame.time.wait(2000)
 
 
