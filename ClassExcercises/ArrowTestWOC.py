@@ -48,6 +48,7 @@ def request_input(prompt, min_=None, max_=None):
         elif min_ is not None and user_input < min_:
             print("Input must be greater than or equal to %d." % min_)
         else:
+
             return user_input
 
 
