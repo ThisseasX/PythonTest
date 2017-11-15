@@ -43,5 +43,6 @@ def request_input(i):
             add_error(i)
 
 
+# 0 for Username, 1 for Password
 request_input(0)
 request_input(1)
